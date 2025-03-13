@@ -29,7 +29,7 @@ Go to **Participant Registration** section and register to be the workshop parti
 
 ```
 | 🦄 | Name | Github username | Your current occupation |
-| 1 | Made Pranajaya Dibyacita | mdprana | Computer Science |
+| 1 | Made Pranajaya Dibyacita | mdprana | Computer Science Student |
 ```
 
 - Step 5: `Commit` your code and push to the forked Github repository
@@ -95,3 +95,8 @@ OpenGuild is a builder-driven community centered around Polkadot. OpenGuild is b
 - **Website:** [OpenGuild Website](https://openguild.wtf/)
 - **Github:** [OpenGuild Labs](https://github.com/openguild-labs)
 - **Discord**: [Openguild Discord Channel](https://discord.gg/bcjMzxqtD7)
+
+## Participant Registration
+
+| 🦄 | Name | Github username | Your current occupation |
+| 1 | Made Pranajaya Dibyacita | [mdprana](https://github.com/mdprana) | Computer Science Student |
