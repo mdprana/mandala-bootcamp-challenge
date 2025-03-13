@@ -29,6 +29,7 @@ Go to **Participant Registration** section and register to be the workshop parti
 
 ```
 | 🦄 | Name | Github username | Your current occupation |
+| 1 | Made Pranajaya Dibyacita | mdprana | Computer Science |
 ```
 
 - Step 5: `Commit` your code and push to the forked Github repository
