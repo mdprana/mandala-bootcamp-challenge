@@ -16,32 +16,65 @@ pub struct StakingPallet<T: StakingConfig> {
 
 impl<T: StakingConfig> StakingPallet<T> {
     pub fn new() -> Self {
-        todo!()
+        Self {
+            free_balances: HashMap::new(),
+            staked_balances: HashMap::new(),
+        }
     }
 
     // Set free balance for an account
     pub fn set_balance(&mut self, who: T::AccountId, amount: T::Balance) {
-        todo!()
+        self.free_balances.insert(who, amount);
     }
 
     // Stake tokens (move from free to staked)
     pub fn stake(&mut self, who: T::AccountId, amount: T::Balance) -> Result<(), &'static str> {
-        todo!()
+        let free_balance = self.get_free_balance(who.clone());
+        
+        if let Some(new_free_balance) = free_balance.checked_sub(&amount) {
+            self.free_balances.insert(who.clone(), new_free_balance);
+            
+            let staked_balance = self.get_staked_balance(who.clone());
+            if let Some(new_staked_balance) = staked_balance.checked_add(&amount) {
+                self.staked_balances.insert(who, new_staked_balance);
+                Ok(())
+            } else {
+                self.free_balances.insert(who, free_balance);
+                Err("Staked balance would overflow")
+            }
+        } else {
+            Err("Not enough free balance to stake")
+        }
     }
 
     // Unstake tokens (move from staked to free)
     pub fn unstake(&mut self, who: T::AccountId, amount: T::Balance) -> Result<(), &'static str> {
-        todo!()
+        let staked_balance = self.get_staked_balance(who.clone());
+        
+        if let Some(new_staked_balance) = staked_balance.checked_sub(&amount) {
+            self.staked_balances.insert(who.clone(), new_staked_balance);
+            
+            let free_balance = self.get_free_balance(who.clone());
+            if let Some(new_free_balance) = free_balance.checked_add(&amount) {
+                self.free_balances.insert(who, new_free_balance);
+                Ok(())
+            } else {
+                self.staked_balances.insert(who, staked_balance);
+                Err("Free balance would overflow")
+            }
+        } else {
+            Err("Not enough staked balance to unstake")
+        }
     }
 
     // Get free balance for an account
     pub fn get_free_balance(&self, who: T::AccountId) -> T::Balance {
-        todo!()
+        *self.free_balances.get(&who).unwrap_or(&T::Balance::zero())
     }
 
     // Get staked balance for an account
     pub fn get_staked_balance(&self, who: T::AccountId) -> T::Balance {
-        todo!()
+        *self.staked_balances.get(&who).unwrap_or(&T::Balance::zero())
     }
 }
 
